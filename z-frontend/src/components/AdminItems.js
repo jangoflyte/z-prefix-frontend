@@ -15,6 +15,7 @@ export const AdminItems = () => {
   return (
     <div>
       <h1>List of Items</h1>
+      <button>Add</button>
       <ul>
         {adminItems.map((item) => (
           <li key={item.id}>
