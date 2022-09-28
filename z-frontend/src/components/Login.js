@@ -27,7 +27,7 @@ export const Login = () => {
             placeholder="type in password"
             required
           />
-          <button type="submit">Submit</button>
+          <button type="submit" onClick={() => navigate("/admin")}>Submit</button>
           <button type="submit" onClick={() => navigate("/items")}>
             Visitor
           </button>
