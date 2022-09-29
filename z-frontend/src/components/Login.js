@@ -16,15 +16,15 @@ export const Login = () => {
           <input
             type="text"
             name="username"
-            placeholder="type in username"
+            placeholder="type in username..."
             autoFocus
             required
           />
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username">Password</label>
           <input
             type="password"
             name="password"
-            placeholder="type in password"
+            placeholder="type in password..."
             required
           />
           <button type="submit" onClick={() => navigate("/admin")}>Submit</button>

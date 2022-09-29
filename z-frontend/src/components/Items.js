@@ -1,5 +1,14 @@
 import React, {useEffect, useContext} from 'react';
 import { InventoryContext } from '../App';
+import styled from 'styled-components';
+
+const StyledDiv = styled.div`
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 0.5em;
+  margin: 1em;
+  margin-right: 10em;
+`;
 
 export const Items = () => {
     const {allItems, setAllItems} = useContext(InventoryContext);
@@ -14,17 +23,26 @@ export const Items = () => {
 
     return (
       <div>
-        <h1>List of Items</h1>
+        <h2>List of All Items:</h2>
+        <h4>Number of items: {allItems.length}</h4>
         <ul>
           {allItems.map((item) => (
-            <li key={item.id}>
-              Name: {item.item_name}
-              <ul>
-                {/* <li>Description: {item.item_description}</li> */}
-                {item.item_description.length > 100 ? <li>...</li> : <li>Description: {item.item_description}</li>}
-                <li>Quantity: {item.quantity}</li>
-              </ul>
-            </li>
+            <StyledDiv>
+              <p key={item.id}>
+                Name: {item.item_name}
+                <ul>
+                  {/* <li>Description: {item.item_description}</li> */}
+                  {item.item_description.length > 100 ? (
+                    <li>
+                      Description: {item.item_description.substring(0, 100)}...
+                    </li>
+                  ) : (
+                    <li>Description: {item.item_description}</li>
+                  )}
+                  <li>Quantity: {item.quantity}</li>
+                </ul>
+              </p>
+            </StyledDiv>
           ))}
         </ul>
       </div>
