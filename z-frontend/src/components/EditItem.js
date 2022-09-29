@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { InventoryContext } from "../App";
 
 const EditItemModal = (props) => {
+    // const { editID} = useContext(InventoryContext);
     const [itemName, setItemName] = useState("");
     const [itemDescription, setItemDescription] = useState("");
     const [quantity, setQuantity] = useState(0);
@@ -59,7 +61,7 @@ const EditItemModal = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
-          <Button onClick={() => handleEditItem()}>Edit</Button>
+          <Button onClick={() => handleEditItem(props.id)}>Edit</Button>
         </Modal.Footer>
       </Modal>
     );

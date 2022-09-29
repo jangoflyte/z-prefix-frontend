@@ -1,9 +1,9 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { InventoryContext } from "../App";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { AddItem } from "./AddItem";
-import { EditItem } from "./EditItem";
+// import { EditItem } from "./EditItem";
 
 const StyledDiv = styled.div`
   border: 1px solid black;
@@ -13,8 +13,17 @@ const StyledDiv = styled.div`
   margin-right: 10em;
 `;
 
+const StyledForm = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 export const AdminItems = () => {
-  const { adminItems, setAdminItems, userID } = useContext(InventoryContext);
+  const { adminItems, setAdminItems, userID} = useContext(InventoryContext);
+  const [itemName, setItemName] = useState("");
+  const [itemDescription, setItemDescription] = useState("");
+  const [quantity, setQuantity] = useState(0);
+  const [toggle, setToggle] = useState(false);
 
   const navigate = useNavigate();
 
@@ -37,6 +46,61 @@ export const AdminItems = () => {
       .catch((err) => console.log(err));
   };
 
+  const handleShowEditButton = () => {
+    setToggle(!toggle);
+    //window.location.reload(false);
+  }
+
+  console.log(toggle);
+
+  const handleEditName = (id) => {
+    fetch(`http://localhost:8080/items/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        item_name: itemName,
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+    })
+      .then(window.location.reload(false))
+      // .then(alert("Item added successfully"))
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+  };
+
+  const handleEditDescription = (id) => {
+    fetch(`http://localhost:8080/items/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        item_description: itemDescription,
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+    })
+      .then(window.location.reload(false))
+      // .then(alert("Item added successfully"))
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+  };
+
+  const handleEditQuantity = (id) => {
+    fetch(`http://localhost:8080/items/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        quantity: quantity
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+    })
+      .then(window.location.reload(false))
+      // .then(alert("Item added successfully"))
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+  };
+
   return (
     <>
       <h2>List of Items for User ID: {userID}</h2>
@@ -52,6 +116,40 @@ export const AdminItems = () => {
       <ul>
         {adminItems.map((item) => (
           <StyledDiv>
+            <StyledForm>
+              {toggle === true ? (
+                <>
+                  <button onClick={() => handleEditName(item.id)}>
+                    Submit
+                  </button>
+                  <input
+                    type="text"
+                    name="name"
+                    onChange={(e) => setItemName(e.target.value)}
+                    autoFocus
+                    placeholder="item name"
+                  ></input>
+                  <button onClick={() => handleEditDescription(item.id)}>
+                    Submit
+                  </button>
+                  <textarea
+                    type="text"
+                    name="description"
+                    onChange={(e) => setItemDescription(e.target.value)}
+                    placeholder="item description"
+                  ></textarea>
+                  <button onClick={() => handleEditQuantity(item.id)}>
+                    Submit
+                  </button>
+                  <input
+                    type="text"
+                    name="quantity"
+                    onChange={(e) => setQuantity(e.target.value)}
+                    placeholder="item quantity"
+                  ></input>
+                </>
+              ) : null}
+            </StyledForm>
             <p key={item.id}>
               Name: {item.item_name}
               <ul>
@@ -66,8 +164,14 @@ export const AdminItems = () => {
                 <li>Quantity: {item.quantity}</li>
               </ul>
             </p>
-            {/* <button style={{ marginLeft: "0.5em" }}>Update</button> */}
-            <EditItem />
+            <button
+              style={{ marginLeft: "0.5em" }}
+              onClick={() => handleShowEditButton()}
+            >
+              Edit
+            </button>
+            {/* {setEditID(item.id)} */}
+            {/* <EditItem id={item.id}/> */}
             <button
               style={{ marginLeft: "0.5em" }}
               onClick={() => handleDeleteItem(item.id)}

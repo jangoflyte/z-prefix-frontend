@@ -12,6 +12,7 @@ function App() {
   const [adminItems, setAdminItems] = useState([]);
   const [userID, setUserID] = useState(1);
   const [username, setUsername] = useState("john");
+  const [editID, setEditID] = useState(1);
 
   const invObj = {
     allItems,
@@ -22,6 +23,8 @@ function App() {
     setUserID,
     username,
     setUsername,
+    editID,
+    setEditID
   };
 
   return (
