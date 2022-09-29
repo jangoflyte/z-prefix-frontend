@@ -126,7 +126,6 @@ export const AdminItems = () => {
                     type="text"
                     name="name"
                     onChange={(e) => setItemName(e.target.value)}
-                    autoFocus
                     placeholder="item name"
                   ></input>
                   <button onClick={() => handleEditDescription(item.id)}>
