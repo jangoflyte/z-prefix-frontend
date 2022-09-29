@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
-const EditItemModal = () => {
+const EditItemModal = (props) => {
     const [itemName, setItemName] = useState("");
     const [itemDescription, setItemDescription] = useState("");
     const [quantity, setQuantity] = useState(0);
 
-    const handleEditItem = () => {
-        fetch(`http://localhost:8080/items`, {
+    const handleEditItem = (id) => {
+        fetch(`http://localhost:8080/items/${id}`, {
           method: "PATCH",
           body: JSON.stringify({
             item_name: itemName,
@@ -25,8 +27,16 @@ const EditItemModal = () => {
     };
 
     return (
-      <>
-        <form>
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">Edit Item</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <label htmlFor="name">Item Name</label>
           <input
             type="text"
@@ -35,30 +45,36 @@ const EditItemModal = () => {
             autoFocus
           ></input>
           <label htmlFor="description">Item Description</label>
-          <input
+          <textarea
             type="text"
             name="description"
             onChange={(e) => setItemDescription(e.target.value)}
-          ></input>
+          ></textarea>
           <label htmlFor="quantity">Item Quantity</label>
           <input
             type="text"
             name="quantity"
             onChange={(e) => setQuantity(e.target.value)}
           ></input>
-          <button onClick={() => handleEditItem()}>Edit</button>
-        </form>
-      </>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={props.onHide}>Close</Button>
+          <Button onClick={() => handleEditItem()}>Edit</Button>
+        </Modal.Footer>
+      </Modal>
     );
 }
 
 export const EditItem = () => {
-    const [modalShow, setShowModal] = useState(false);
+  const [modalShow, setModalShow] = React.useState(false);
 
-    return (
-      <>
-        <button onClick={() => setShowModal(true)}>Edit</button>
-        <EditItemModal show={modalShow} onHide={() => setShowModal(false)}/>
-      </>
-    );
+  return (
+    <>
+      <Button variant="primary" onClick={() => setModalShow(true)}>
+        Edit
+      </Button>
+
+      <EditItemModal show={modalShow} onHide={() => setModalShow(false)} />
+    </>
+  );
 };

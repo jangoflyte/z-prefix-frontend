@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {Routes, Route, Link} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import { Login } from './components/Login';
 import { Banner } from './components/Banner';
 import { Items } from './components/Items';
 import { AdminItems } from './components/AdminItems';
-import './App.css';
 
 export const InventoryContext = React.createContext();
 

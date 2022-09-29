@@ -19,7 +19,7 @@ export const Items = () => {
         fetch(url)
             .then(res => res.json())
             .then(data => setAllItems(data))
-    }, [url]);
+    }, [allItems, url]);
 
     return (
       <div>

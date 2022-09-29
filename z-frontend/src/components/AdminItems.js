@@ -24,7 +24,7 @@ export const AdminItems = () => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => setAdminItems(data));
-  }, [url]);
+  }, [userID]);
 
   //http://localhost:8080/items/8
   const handleDeleteItem = (id) => {
@@ -37,12 +37,11 @@ export const AdminItems = () => {
       .catch((err) => console.log(err));
   };
 
-
   return (
-    <div>
+    <>
       <h2>List of Items for User ID: {userID}</h2>
       {/* <button style={{ marginLeft: "0.5em" }}>Add</button> */}
-      <AddItem/>
+      <AddItem />
       <button
         style={{ marginLeft: "0.5em" }}
         onClick={() => navigate("/items")}
@@ -55,14 +54,6 @@ export const AdminItems = () => {
           <StyledDiv>
             <p key={item.id}>
               Name: {item.item_name}
-              {/* <button style={{ marginLeft: "0.5em" }}>Update</button> */}
-              <EditItem />
-              <button
-                style={{ marginLeft: "0.5em" }}
-                onClick={() => handleDeleteItem(item.id)}
-              >
-                Delete
-              </button>
               <ul>
                 {/* <li>Description: {item.item_description}</li> */}
                 {item.item_description.length > 100 ? (
@@ -75,9 +66,17 @@ export const AdminItems = () => {
                 <li>Quantity: {item.quantity}</li>
               </ul>
             </p>
+            {/* <button style={{ marginLeft: "0.5em" }}>Update</button> */}
+            <EditItem />
+            <button
+              style={{ marginLeft: "0.5em" }}
+              onClick={() => handleDeleteItem(item.id)}
+            >
+              Delete
+            </button>
           </StyledDiv>
         ))}
       </ul>
-    </div>
+    </>
   );
 };

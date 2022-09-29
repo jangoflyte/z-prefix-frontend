@@ -1,7 +1,9 @@
 import React, {useContext, useState} from 'react';
 import { InventoryContext } from '../App';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
-const AddItemModal = () => {
+const AddItemModal = (props) => {
     const {userID} = useContext(InventoryContext);
     const [itemName, setItemName] = useState("");
     const [itemDescription, setItemDescription] = useState("");
@@ -27,42 +29,59 @@ const AddItemModal = () => {
         ;
     };
 
-    return (
-      <>
-        <form>
-          <h4>Add Item</h4>
-          <label htmlFor="name">Item Name</label>
-          <input
-            type="text"
-            name="name"
-            onChange={(e) => setItemName(e.target.value)}
-            autoFocus
-          ></input>
-          <label htmlFor="description">Item Description</label>
-          <input
-            type="text"
-            name="description"
-            onChange={(e) => setItemDescription(e.target.value)}
-          ></input>
-          <label htmlFor="quantity">Item Quantity</label>
-          <input
-            type="text"
-            name="quantity"
-            onChange={(e) => setQuantity(e.target.value)}
-          ></input>
-          <button onClick={() => handleAddItem()}>Add</button>
-        </form>
-      </>
-    );
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">Add Item</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <label htmlFor="name">Item Name</label>
+        <input
+          type="text"
+          name="name"
+          onChange={(e) => setItemName(e.target.value)}
+          autoFocus
+        ></input>
+        <label htmlFor="description">Item Description</label>
+        <textarea
+          type="text"
+          name="description"
+          onChange={(e) => setItemDescription(e.target.value)}
+        ></textarea>
+        <label htmlFor="quantity">Item Quantity</label>
+        <input
+          type="text"
+          name="quantity"
+          onChange={(e) => setQuantity(e.target.value)}
+        ></input>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.onHide}>Close</Button>
+        <Button onClick={() => handleAddItem()}>Add</Button>
+      </Modal.Footer>
+    </Modal>
+  );
 }
 
-export const AddItem = () => {
-    const [modalShow, setShowModal] = useState(false);
+export function AddItem() {
+  const [modalShow, setModalShow] = React.useState(false);
 
-    return (
-      <>
-        <button onClick={() => setShowModal(true)}>Add</button>
-        <AddItemModal show={modalShow} onHide={() => setShowModal(false)}/>
-      </>
-    );
-};
+  return (
+    <>
+      <Button variant="primary" onClick={() => setModalShow(true)}>
+        Add
+      </Button>
+
+      <AddItemModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+    </>
+  );
+}
+
