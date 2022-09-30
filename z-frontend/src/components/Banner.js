@@ -10,7 +10,7 @@ export const Banner = () => {
           <h1 style={{ textAlign: "center" }}>Inventory App</h1>
         </Link>
 
-        <h3 style={{ textAlign: "right", marginRight: "0.5em" }}>Welcome, {firstName}</h3>
+        {/* <h3 style={{ textAlign: "right", marginRight: "0.5em" }}>Welcome, {firstName}</h3> */}
       </div>
     );
 }

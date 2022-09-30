@@ -16,7 +16,12 @@ const StyledDiv = styled.div`
 const StyledForm = styled.div`
   display: flex;
   justify-content: center;
-`
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin: 1em;
+  margin-left: 30%;
+  margin-right: 30%;
+`;
 
 export const AdminItems = () => {
   const { adminItems, setAdminItems, userID} = useContext(InventoryContext);
@@ -56,8 +61,6 @@ export const AdminItems = () => {
     setToggle(!toggle);
     //window.location.reload(false);
   }
-
-  console.log(toggle);
 
   const handleEditName = (id) => {
     //`${itemheroku}/${id}` || `${itemurl}/${id}`
@@ -126,33 +129,39 @@ export const AdminItems = () => {
             <StyledForm>
               {toggle === true ? (
                 <>
-                  <button onClick={() => handleEditName(item.id)}>
-                    Submit
-                  </button>
+                  <p style={{ textAlign: "center" }}>
+                    Warning: Only 1 field can be updated...
+                  </p>
+
                   <input
                     type="text"
                     name="name"
                     onChange={(e) => setItemName(e.target.value)}
                     placeholder="item name"
                   ></input>
-                  <button onClick={() => handleEditDescription(item.id)}>
+                  <button onClick={() => handleEditName(item.id)}>
                     Submit
                   </button>
+
                   <textarea
                     type="text"
                     name="description"
                     onChange={(e) => setItemDescription(e.target.value)}
                     placeholder="item description"
                   ></textarea>
-                  <button onClick={() => handleEditQuantity(item.id)}>
+                  <button onClick={() => handleEditDescription(item.id)}>
                     Submit
                   </button>
+
                   <input
                     type="text"
                     name="quantity"
                     onChange={(e) => setQuantity(e.target.value)}
                     placeholder="item quantity"
                   ></input>
+                  <button onClick={() => handleEditQuantity(item.id)}>
+                    Submit
+                  </button>
                 </>
               ) : null}
             </StyledForm>
