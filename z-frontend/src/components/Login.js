@@ -27,8 +27,8 @@ export const Login = () => {
       setToggle(!toggle);
     }
 
-    const createurl = `http://localhost:8080/new`;
-    const createheroku = `https://z-prefix-backend-castro.herokuapp.com/new`;
+    const createurl = `http://localhost:8080/create`;
+    const createheroku = `https://z-prefix-backend-castro.herokuapp.com/create`;
 
     const handleCreateUser = () => {
       fetch(createurl, {
