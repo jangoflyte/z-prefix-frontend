@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { InventoryContext } from "../App";
+// import { InventoryContext } from "../App";
 
 const EditItemModal = (props) => {
     // const { editID} = useContext(InventoryContext);

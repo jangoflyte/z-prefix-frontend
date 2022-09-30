@@ -11,40 +11,41 @@ const StyledDiv = styled.div`
 `;
 
 export const Items = () => {
-    const {allItems, setAllItems} = useContext(InventoryContext);
+  const {allItems, setAllItems} = useContext(InventoryContext);
 
-    const url = `http://localhost:8080/useritem`;
+  const url = `http://localhost:8080/useritem`;
+  const heroku = `https://z-prefix-backend-castro.herokuapp.com/useritem`;
 
-    useEffect(() => {
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setAllItems(data))
-    }, [allItems, url]);
+  useEffect(() => {
+    fetch(url || heroku)
+      .then(res => res.json())
+      .then(data => setAllItems(data))
+  }, [allItems, url]);
 
-    return (
-      <div>
-        <h2>List of All Items:</h2>
-        <h4>Number of items: {allItems.length}</h4>
-        <ul>
-          {allItems.map((item) => (
-            <StyledDiv>
-              <p key={item.id}>
-                Name: {item.item_name}
-                <ul>
-                  {/* <li>Description: {item.item_description}</li> */}
-                  {item.item_description.length > 100 ? (
-                    <li>
-                      Description: {item.item_description.substring(0, 100)}...
-                    </li>
-                  ) : (
-                    <li>Description: {item.item_description}</li>
-                  )}
-                  <li>Quantity: {item.quantity}</li>
-                </ul>
-              </p>
-            </StyledDiv>
-          ))}
-        </ul>
-      </div>
-    );
+  return (
+    <div>
+      <h2>List of All Items:</h2>
+      <h4>Number of items: {allItems.length}</h4>
+      <ul>
+        {allItems.map((item) => (
+          <StyledDiv>
+            <p key={item.id}>
+              Name: {item.item_name}
+              <ul>
+                {/* <li>Description: {item.item_description}</li> */}
+                {item.item_description.length > 100 ? (
+                  <li>
+                    Description: {item.item_description.substring(0, 100)}...
+                  </li>
+                ) : (
+                  <li>Description: {item.item_description}</li>
+                )}
+                <li>Quantity: {item.quantity}</li>
+              </ul>
+            </p>
+          </StyledDiv>
+        ))}
+      </ul>
+    </div>
+  );
 }

@@ -27,17 +27,21 @@ export const AdminItems = () => {
 
   const navigate = useNavigate();
 
-  const url = `http://localhost:8080/useritem/${userID}`;
+  const url = `http://localhost:8080/useritem`;
+  const heroku = `https://z-prefix-backend-castro.herokuapp.com/useritem`;
 
   useEffect(() => {
-    fetch(url)
+    fetch(`${url}/${userID}` || `${heroku}/${userID}`)
       .then((res) => res.json())
       .then((data) => setAdminItems(data));
   }, [userID]);
 
+  const itemurl = `http://localhost:8080/items`;
+  const itemheroku = `https://z-prefix-backend-castro.herokuapp.com/items`;
+  
   //http://localhost:8080/items/8
   const handleDeleteItem = (id) => {
-    fetch(`http://localhost:8080/items/${id}`, {
+    fetch(`${itemurl}/${id}` || `${itemheroku}/${id}`, {
       method: "DELETE",
     })
       .then(window.location.reload(false))
@@ -54,7 +58,7 @@ export const AdminItems = () => {
   console.log(toggle);
 
   const handleEditName = (id) => {
-    fetch(`http://localhost:8080/items/${id}`, {
+    fetch(`${itemurl}/${id}` || `${itemheroku}/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
         item_name: itemName,
@@ -70,7 +74,7 @@ export const AdminItems = () => {
   };
 
   const handleEditDescription = (id) => {
-    fetch(`http://localhost:8080/items/${id}`, {
+    fetch(`${itemurl}/${id}` || `${itemheroku}/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
         item_description: itemDescription,
@@ -86,10 +90,10 @@ export const AdminItems = () => {
   };
 
   const handleEditQuantity = (id) => {
-    fetch(`http://localhost:8080/items/${id}`, {
+    fetch(`${itemurl}/${id}` || `${itemheroku}/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
-        quantity: quantity
+        quantity: quantity,
       }),
       headers: {
         "Content-Type": "application/json; charset=utf-8",

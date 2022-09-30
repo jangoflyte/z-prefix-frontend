@@ -9,8 +9,11 @@ const AddItemModal = (props) => {
     const [itemDescription, setItemDescription] = useState("");
     const [quantity, setQuantity] = useState(0);
 
+    const url = `http://localhost:8080/items`;
+    const heroku = `https://z-prefix-backend-castro.herokuapp.com/items`;
+
     const handleAddItem = () => {
-        fetch(`http://localhost:8080/items`, {
+        fetch(url || heroku, {
           method: "POST",
           body: JSON.stringify({
             user_id: userID,
