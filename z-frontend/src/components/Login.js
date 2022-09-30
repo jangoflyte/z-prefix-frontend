@@ -37,7 +37,7 @@ export const Login = () => {
           first_name: firstName,
           last_name: lastname,
           username: username,
-          password: password,
+          passwordHash: password,
         }),
         headers: {
           "Content-Type": "application/json; charset=utf-8",

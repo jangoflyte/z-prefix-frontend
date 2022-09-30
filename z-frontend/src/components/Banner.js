@@ -3,7 +3,7 @@ import { InventoryContext } from '../App';
 import {Link} from 'react-router-dom';
 
 export const Banner = () => {
-    const {firstName} = useContext(InventoryContext);
+    //const {firstName} = useContext(InventoryContext);
     return (
       <div>
         <Link to="/" style={{ textDecoration: "none" }}>
