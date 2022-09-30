@@ -17,10 +17,10 @@ export const Items = () => {
   const heroku = `https://z-prefix-backend-castro.herokuapp.com/useritem`;
 
   useEffect(() => {
-    fetch(url || heroku)
+    fetch(heroku)
       .then(res => res.json())
       .then(data => setAllItems(data))
-  }, [allItems, url]);
+  }, []);
 
   return (
     <div>
