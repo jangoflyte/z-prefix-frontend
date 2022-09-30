@@ -31,7 +31,8 @@ export const AdminItems = () => {
   const heroku = `https://z-prefix-backend-castro.herokuapp.com/useritem`;
 
   useEffect(() => {
-    fetch(`${url}/${userID}` || `${heroku}/${userID}`)
+    //`${heroku}/${userID}` || `${url}/${userID}`
+    fetch(`${url}/${userID}`)
       .then((res) => res.json())
       .then((data) => setAdminItems(data));
   }, [userID]);
@@ -41,7 +42,8 @@ export const AdminItems = () => {
   
   //http://localhost:8080/items/8
   const handleDeleteItem = (id) => {
-    fetch(`${itemurl}/${id}` || `${itemheroku}/${id}`, {
+    //`${itemheroku}/${id}` || `${itemurl}/${id}`
+    fetch(`${itemurl}/${id}`, {
       method: "DELETE",
     })
       .then(window.location.reload(false))
@@ -58,7 +60,8 @@ export const AdminItems = () => {
   console.log(toggle);
 
   const handleEditName = (id) => {
-    fetch(`${itemurl}/${id}` || `${itemheroku}/${id}`, {
+    //`${itemheroku}/${id}` || `${itemurl}/${id}`
+    fetch(`${itemurl}/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
         item_name: itemName,
@@ -74,7 +77,7 @@ export const AdminItems = () => {
   };
 
   const handleEditDescription = (id) => {
-    fetch(`${itemurl}/${id}` || `${itemheroku}/${id}`, {
+    fetch(`${itemurl}/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
         item_description: itemDescription,
@@ -90,7 +93,7 @@ export const AdminItems = () => {
   };
 
   const handleEditQuantity = (id) => {
-    fetch(`${itemurl}/${id}` || `${itemheroku}/${id}`, {
+    fetch(`${itemurl}/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
         quantity: quantity,

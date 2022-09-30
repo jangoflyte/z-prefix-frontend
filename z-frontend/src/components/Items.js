@@ -17,7 +17,7 @@ export const Items = () => {
   const heroku = `https://z-prefix-backend-castro.herokuapp.com/useritem`;
 
   useEffect(() => {
-    fetch(heroku)
+    fetch(url)
       .then(res => res.json())
       .then(data => setAllItems(data))
   }, []);
