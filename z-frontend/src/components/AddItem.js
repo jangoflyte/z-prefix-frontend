@@ -65,7 +65,7 @@ const AddItemModal = (props) => {
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
-        <Button onClick={() => handleAddItem()}>Add</Button>
+        <Button variant="success" onClick={() => handleAddItem()}>Add</Button>
       </Modal.Footer>
     </Modal>
   );

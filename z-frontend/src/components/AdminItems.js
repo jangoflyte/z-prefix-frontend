@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { AddItem } from "./AddItem";
 // import { EditItem } from "./EditItem";
+import Button from "react-bootstrap/Button";
 
 const StyledDiv = styled.div`
   border: 1px solid black;
@@ -19,8 +20,10 @@ const StyledForm = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   margin: 1em;
-  margin-left: 30%;
-  margin-right: 30%;
+  margin-left: 40%;
+  margin-right: 40%;
+  border-radius: 3px;
+  border: 1px solid black;
 `;
 
 export const AdminItems = () => {
@@ -116,19 +119,20 @@ export const AdminItems = () => {
       <h2>List of Items for User ID: {userID}</h2>
       {/* <button style={{ marginLeft: "0.5em" }}>Add</button> */}
       <AddItem />
-      <button
+      <Button
+        variant="secondary"
         style={{ marginLeft: "0.5em" }}
         onClick={() => navigate("/items")}
       >
         All Items
-      </button>
+      </Button>
       <h4>Number of items: {adminItems.length}</h4>
       <ul>
         {adminItems.map((item) => (
           <StyledDiv>
-            <StyledForm>
+            <>
               {toggle === true ? (
-                <>
+                <StyledForm>
                   <p style={{ textAlign: "center" }}>
                     Warning: Only 1 field can be updated...
                   </p>
@@ -139,9 +143,9 @@ export const AdminItems = () => {
                     onChange={(e) => setItemName(e.target.value)}
                     placeholder="item name"
                   ></input>
-                  <button onClick={() => handleEditName(item.id)}>
+                  <Button onClick={() => handleEditName(item.id)}>
                     Submit
-                  </button>
+                  </Button>
 
                   <textarea
                     type="text"
@@ -149,9 +153,9 @@ export const AdminItems = () => {
                     onChange={(e) => setItemDescription(e.target.value)}
                     placeholder="item description"
                   ></textarea>
-                  <button onClick={() => handleEditDescription(item.id)}>
+                  <Button onClick={() => handleEditDescription(item.id)}>
                     Submit
-                  </button>
+                  </Button>
 
                   <input
                     type="text"
@@ -159,12 +163,12 @@ export const AdminItems = () => {
                     onChange={(e) => setQuantity(e.target.value)}
                     placeholder="item quantity"
                   ></input>
-                  <button onClick={() => handleEditQuantity(item.id)}>
+                  <Button onClick={() => handleEditQuantity(item.id)}>
                     Submit
-                  </button>
-                </>
+                  </Button>
+                </StyledForm>
               ) : null}
-            </StyledForm>
+            </>
             <p key={item.id}>
               Name: {item.item_name}
               <ul>
@@ -179,20 +183,21 @@ export const AdminItems = () => {
                 <li>Quantity: {item.quantity}</li>
               </ul>
             </p>
-            <button
+            <Button
               style={{ marginLeft: "0.5em" }}
               onClick={() => handleShowEditButton()}
             >
               Edit
-            </button>
+            </Button>
             {/* {setEditID(item.id)} */}
             {/* <EditItem id={item.id}/> */}
-            <button
+            <Button
+              variant="danger"
               style={{ marginLeft: "0.5em" }}
               onClick={() => handleDeleteItem(item.id)}
             >
               Delete
-            </button>
+            </Button>
           </StyledDiv>
         ))}
       </ul>

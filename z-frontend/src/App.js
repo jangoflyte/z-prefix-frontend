@@ -14,6 +14,7 @@ function App() {
   const [userID, setUserID] = useState(1);
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("...");
+  const [userList, setUserList] = useState([]);
 
   const invObj = {
     allItems,
@@ -26,6 +27,8 @@ function App() {
     setUsername,
     firstName,
     setFirstName,
+    userList,
+    setUserList,
   };
 
   return (

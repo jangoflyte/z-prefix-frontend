@@ -2,6 +2,7 @@ import React, {useState, useContext} from 'react';
 import {useNavigate} from 'react-router-dom'
 import styled from 'styled-components'
 import { InventoryContext } from "../App";
+import Button from "react-bootstrap/Button";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -11,6 +12,8 @@ const StyledDiv = styled.div`
   margin-top: 10%;
   margin-left: 10%;
   margin-right: 10%;
+  border-radius: 10px;
+  border: 1px solid black;
 `;
 
 export const Login = () => {
@@ -20,8 +23,6 @@ export const Login = () => {
       useContext(InventoryContext);
     const [lastname, setLastName] = useState("");
     const [password, setPassword] = useState("");
-    const [loginUsername, setLoginUsername] = useState("");
-    const [loginpassword, setLoginPassword] = useState("");
 
     const handleLogin = () => {
       setToggle(!toggle);
@@ -47,6 +48,25 @@ export const Login = () => {
         .then(navigate("/welcome"))
         .catch(err => console.log(err));
     };
+
+    const loginurl = `http://localhost:8080/userlogin`;
+    const loginheroku = `https://z-prefix-backend-castro.herokuapp.com/userlogin`;
+
+    const handleLoginUser = () => {
+      fetch(loginurl, {
+        method: "POST",
+        body: JSON.stringify({
+          username: username,
+          passwordHash: password,
+        }),
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      })
+        .then((res) => res.json())
+        .then(navigate("/welcome"))
+        .catch((err) => console.log(err));
+    };
     
     return (
       <StyledDiv>
@@ -59,7 +79,7 @@ export const Login = () => {
                 <input
                   type="text"
                   name="loginusername"
-                  onChange={(e) => setLoginUsername(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value)}
                   placeholder="type in username..."
                   autoFocus
                   required
@@ -68,13 +88,13 @@ export const Login = () => {
                 <input
                   type="password"
                   name="loginpassword"
-                  onChange={(e) => setLoginPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="type in password..."
                   required
                 />
-                <button type="submit" onClick={() => navigate("/welcome")}>
+                <Button type="submit" onClick={() => handleLoginUser()}>
                   Submit
-                </button>
+                </Button>
               </>
             </>
           ) : (
@@ -114,19 +134,21 @@ export const Login = () => {
                   placeholder="type in password..."
                   required
                 />
-                <button type="submit" onClick={() => handleCreateUser()}>
+                <Button type="submit" onClick={() => handleCreateUser()}>
                   Submit
-                </button>
+                </Button>
               </>
             </>
           )}
 
-          <button type="submit" onClick={() => handleLogin()}>
+          <label htmlFor="signin">Already a user?</label>
+          <Button variant="success" type="submit" name="signin" onClick={() => handleLogin()}>
             Sign In
-          </button>
-          <button type="submit" onClick={() => navigate("/items")}>
+          </Button>
+          <label htmlFor="visitor">Click if no account</label>
+          <Button type="submit" name="visitor" onClick={() => navigate("/items")}>
             Visitor
-          </button>
+          </Button>
         </form>
       </StyledDiv>
     );
