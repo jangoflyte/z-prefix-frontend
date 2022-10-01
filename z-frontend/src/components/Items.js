@@ -29,9 +29,9 @@ export const Items = () => {
   const itemheroku = `https://z-prefix-backend-castro.herokuapp.com/useritem`;
 
   useEffect(() => {
-    fetch(itemurl)
-      .then(res => res.json())
-      .then(data => setAllItems(data))
+    fetch(itemheroku)
+      .then((res) => res.json())
+      .then((data) => setAllItems(data));
   }, []);
 
   const handleClick = (id) => {
@@ -39,13 +39,14 @@ export const Items = () => {
     setUserID(id);
   };
 
-  console.log(userID);
+  console.log("user ID", userID);
 
   const specificurl = `http://localhost:8080/useritem/${userID}`;
+  //const specificurl = `http://localhost:8080/useritem/2`;
   const specificheroku = `https://z-prefix-backend-castro.herokuapp.com/useritem${userID}`;
 
   useEffect(() => {
-    fetch(specificurl)
+    fetch(specificheroku)
       .then((res) => res.json())
       .then((data) => setSpecificItems(data));
   }, []);
@@ -56,7 +57,7 @@ export const Items = () => {
   const userheroku = `https://z-prefix-backend-castro.herokuapp.com/users`;
 
   useEffect(() => {
-    fetch(userurl)
+    fetch(userheroku)
       .then((response) => response.json())
       .then((data) => {
         setUserList(data);
@@ -75,29 +76,53 @@ export const Items = () => {
 
         <Dropdown.Menu>
           {userList.map((user) => (
-            <Dropdown.Item onClick={() => handleClick(user.id)}>{user.id}</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleClick(user.id)}>
+              {user.id}
+            </Dropdown.Item>
           ))}
         </Dropdown.Menu>
       </Dropdown>
-      <>
-        {allItems.map((item) => (
-          <StyledDiv>
-            <ul key={item.id}>
-              Name: {item.item_name}
-              <ul>
-                {item.item_description.length > 100 ? (
-                  <li>
-                    Description: {item.item_description.substring(0, 100)}...
-                  </li>
-                ) : (
-                  <li>Description: {item.item_description}</li>
-                )}
-                <li>Quantity: {item.quantity}</li>
+      {toggle === false ? (
+        <>
+          {allItems.map((item) => (
+            <StyledDiv>
+              <ul key={item.id}>
+                Name: {item.item_name}
+                <ul>
+                  {item.item_description.length > 100 ? (
+                    <li>
+                      Description: {item.item_description.substring(0, 100)}...
+                    </li>
+                  ) : (
+                    <li>Description: {item.item_description}</li>
+                  )}
+                  <li>Quantity: {item.quantity}</li>
+                </ul>
               </ul>
-            </ul>
-          </StyledDiv>
-        ))}
-      </>
+            </StyledDiv>
+          ))}
+        </>
+      ) : (
+        <>
+          {specificItems.map((item) => (
+            <StyledDiv>
+              <ul key={item.id}>
+                Name: {item.item_name}
+                <ul>
+                  {item.item_description.length > 100 ? (
+                    <li>
+                      Description: {item.item_description.substring(0, 100)}...
+                    </li>
+                  ) : (
+                    <li>Description: {item.item_description}</li>
+                  )}
+                  <li>Quantity: {item.quantity}</li>
+                </ul>
+              </ul>
+            </StyledDiv>
+          ))}
+        </>
+      )}
     </div>
   );
 }

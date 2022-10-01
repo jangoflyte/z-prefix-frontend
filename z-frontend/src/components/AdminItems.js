@@ -40,7 +40,7 @@ export const AdminItems = () => {
   const heroku = `https://z-prefix-backend-castro.herokuapp.com/useritem/${currentUser}`;
 
   useEffect(() => {
-    fetch(url)
+    fetch(heroku)
       .then((res) => res.json())
       .then((data) => setAdminItems(data));
   }, []);
@@ -50,7 +50,7 @@ export const AdminItems = () => {
   
   //http://localhost:8080/items/8
   const handleDeleteItem = (id) => {
-    fetch(`${itemurl}/${id}`, {
+    fetch(`${itemheroku}/${id}`, {
       method: "DELETE",
     })
       .then(window.location.reload(false))

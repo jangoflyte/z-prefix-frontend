@@ -21,7 +21,7 @@ const AddItemModal = (props) => {
     const heroku = `https://z-prefix-backend-castro.herokuapp.com/items`;
 
     const handleAddItem = () => {
-        fetch(url, {
+        fetch(heroku, {
           method: "POST",
           body: JSON.stringify({
             user_id: currentUser,

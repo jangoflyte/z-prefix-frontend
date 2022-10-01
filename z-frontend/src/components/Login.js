@@ -52,7 +52,7 @@ export const Login = () => {
     const createheroku = `https://z-prefix-backend-castro.herokuapp.com/create`;
 
     const handleCreateUser = () => {
-      fetch(createurl, {
+      fetch(createheroku, {
         method: "POST",
         body: JSON.stringify({
           first_name: firstName,
@@ -64,16 +64,16 @@ export const Login = () => {
           "Content-Type": "application/json; charset=utf-8",
         },
       })
-        .then(res => res.json())
+        .then((res) => res.json())
         .then(navigate("/welcome"))
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     };
 
     const loginurl = `http://localhost:8080/userlogin`;
     const loginheroku = `https://z-prefix-backend-castro.herokuapp.com/userlogin`;
 
     const handleLoginUser = () => {
-      fetch(loginurl, {
+      fetch(loginheroku, {
         method: "POST",
         body: JSON.stringify({
           username: username,
