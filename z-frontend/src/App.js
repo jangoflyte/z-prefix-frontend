@@ -11,10 +11,12 @@ export const InventoryContext = React.createContext();
 function App() {
   const [allItems, setAllItems] = useState([]);
   const [adminItems, setAdminItems] = useState([]);
-  const [userID, setUserID] = useState(1);
+  const [userID, setUserID] = useState(0);
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("...");
   const [userList, setUserList] = useState([]);
+  const [specificItems, setSpecificItems] = useState([]);
+  const [currentUser, setCurrentUser] = useState(1);
 
   const invObj = {
     allItems,
@@ -29,6 +31,10 @@ function App() {
     setFirstName,
     userList,
     setUserList,
+    specificItems,
+    setSpecificItems,
+    currentUser,
+    setCurrentUser,
   };
 
   return (

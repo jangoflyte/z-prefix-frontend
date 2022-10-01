@@ -27,7 +27,7 @@ const StyledForm = styled.div`
 `;
 
 export const AdminItems = () => {
-  const { adminItems, setAdminItems, userID} = useContext(InventoryContext);
+  const { adminItems, setAdminItems, currentUser} = useContext(InventoryContext);
   const [itemName, setItemName] = useState("");
   const [itemDescription, setItemDescription] = useState("");
   const [quantity, setQuantity] = useState(0);
@@ -35,38 +35,33 @@ export const AdminItems = () => {
 
   const navigate = useNavigate();
 
-  const url = `http://localhost:8080/useritem`;
-  const heroku = `https://z-prefix-backend-castro.herokuapp.com/useritem`;
+  const url = `http://localhost:8080/useritem/${currentUser}`;
+  const heroku = `https://z-prefix-backend-castro.herokuapp.com/useritem/${currentUser}`;
 
   useEffect(() => {
-    //`${heroku}/${userID}` || `${url}/${userID}`
-    fetch(`${url}/${userID}`)
+    fetch(url)
       .then((res) => res.json())
       .then((data) => setAdminItems(data));
-  }, [userID]);
+  }, []);
 
   const itemurl = `http://localhost:8080/items`;
   const itemheroku = `https://z-prefix-backend-castro.herokuapp.com/items`;
   
   //http://localhost:8080/items/8
   const handleDeleteItem = (id) => {
-    //`${itemheroku}/${id}` || `${itemurl}/${id}`
     fetch(`${itemurl}/${id}`, {
       method: "DELETE",
     })
       .then(window.location.reload(false))
-      // .then(alert("Item deleted successfully"))
       .then((res) => res.json())
       .catch((err) => console.log(err));
   };
 
   const handleShowEditButton = () => {
     setToggle(!toggle);
-    //window.location.reload(false);
   }
 
   const handleEditName = (id) => {
-    //`${itemheroku}/${id}` || `${itemurl}/${id}`
     fetch(`${itemurl}/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -77,7 +72,6 @@ export const AdminItems = () => {
       },
     })
       .then(window.location.reload(false))
-      // .then(alert("Item added successfully"))
       .then((res) => res.json())
       .catch((err) => console.log(err));
   };
@@ -93,7 +87,6 @@ export const AdminItems = () => {
       },
     })
       .then(window.location.reload(false))
-      // .then(alert("Item added successfully"))
       .then((res) => res.json())
       .catch((err) => console.log(err));
   };
@@ -109,14 +102,13 @@ export const AdminItems = () => {
       },
     })
       .then(window.location.reload(false))
-      // .then(alert("Item added successfully"))
       .then((res) => res.json())
       .catch((err) => console.log(err));
   };
 
   return (
     <>
-      <h2>List of Items for User ID: {userID}</h2>
+      <h2>List of Items for User ID: {currentUser}</h2>
       {/* <button style={{ marginLeft: "0.5em" }}>Add</button> */}
       <AddItem />
       <Button
@@ -127,7 +119,7 @@ export const AdminItems = () => {
         All Items
       </Button>
       <h4>Number of items: {adminItems.length}</h4>
-      <ul>
+      <>
         {adminItems.map((item) => (
           <StyledDiv>
             <>
@@ -169,10 +161,9 @@ export const AdminItems = () => {
                 </StyledForm>
               ) : null}
             </>
-            <p key={item.id}>
+            <ul key={item.id}>
               Name: {item.item_name}
               <ul>
-                {/* <li>Description: {item.item_description}</li> */}
                 {item.item_description.length > 100 ? (
                   <li>
                     Description: {item.item_description.substring(0, 100)}...
@@ -182,14 +173,13 @@ export const AdminItems = () => {
                 )}
                 <li>Quantity: {item.quantity}</li>
               </ul>
-            </p>
+            </ul>
             <Button
               style={{ marginLeft: "0.5em" }}
               onClick={() => handleShowEditButton()}
             >
               Edit
             </Button>
-            {/* {setEditID(item.id)} */}
             {/* <EditItem id={item.id}/> */}
             <Button
               variant="danger"
@@ -200,7 +190,7 @@ export const AdminItems = () => {
             </Button>
           </StyledDiv>
         ))}
-      </ul>
+      </>
     </>
   );
 };

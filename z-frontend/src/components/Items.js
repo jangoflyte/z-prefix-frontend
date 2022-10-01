@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import { InventoryContext } from '../App';
 import styled from 'styled-components';
 import Dropdown from "react-bootstrap/Dropdown";
@@ -12,7 +12,17 @@ const StyledDiv = styled.div`
 `;
 
 export const Items = () => {
-  const {allItems, setAllItems, userList, setUserList} = useContext(InventoryContext);
+  const {
+    allItems,
+    setAllItems,
+    userList,
+    setUserList,
+    userID,
+    setUserID,
+    specificItems,
+    setSpecificItems,
+  } = useContext(InventoryContext);
+  const [toggle, setToggle] = useState(false);
 
   const itemurl = `http://localhost:8080/useritem`;
   const itemheroku = `https://z-prefix-backend-castro.herokuapp.com/useritem`;
@@ -22,6 +32,24 @@ export const Items = () => {
       .then(res => res.json())
       .then(data => setAllItems(data))
   }, []);
+
+  const handleClick = (id) => {
+    setToggle(!toggle);
+    setUserID(id);
+  };
+
+  console.log(userID);
+
+  const specificurl = `http://localhost:8080/useritem/${userID}`;
+  const specificheroku = `https://z-prefix-backend-castro.herokuapp.com/useritem${userID}`;
+
+  useEffect(() => {
+    fetch(specificurl)
+      .then((res) => res.json())
+      .then((data) => setSpecificItems(data));
+  }, []);
+
+  console.log(specificItems);
 
   const userurl = `http://localhost:8080/users`;
   const userheroku = `https://z-prefix-backend-castro.herokuapp.com/users`;
@@ -46,17 +74,16 @@ export const Items = () => {
 
         <Dropdown.Menu>
           {userList.map((user) => (
-            <Dropdown.Item >{user.id}</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleClick(user.id)}>{user.id}</Dropdown.Item>
           ))}
         </Dropdown.Menu>
       </Dropdown>
-      <ul>
+      <>
         {allItems.map((item) => (
           <StyledDiv>
-            <p key={item.id}>
+            <ul key={item.id}>
               Name: {item.item_name}
               <ul>
-                {/* <li>Description: {item.item_description}</li> */}
                 {item.item_description.length > 100 ? (
                   <li>
                     Description: {item.item_description.substring(0, 100)}...
@@ -66,10 +93,10 @@ export const Items = () => {
                 )}
                 <li>Quantity: {item.quantity}</li>
               </ul>
-            </p>
+            </ul>
           </StyledDiv>
         ))}
-      </ul>
+      </>
     </div>
   );
 }

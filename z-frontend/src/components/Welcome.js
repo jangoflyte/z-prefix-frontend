@@ -10,8 +10,6 @@ export const Welcome = () => {
     //const [toggle, setToggle] = useState(false);
     const navigate = useNavigate();
 
-
-
     // const handleClick = () => {
     //     setToggle(!toggle);
     // };
@@ -32,7 +30,7 @@ export const Welcome = () => {
         ) : (
           <AdminItems />
         )} */}
-        
+
         <Button onClick={() => navigate("/admin")}>Personal Items</Button>
         {/* <Button onClick={() => handleClick()}>Personal Items</Button> */}
       </div>

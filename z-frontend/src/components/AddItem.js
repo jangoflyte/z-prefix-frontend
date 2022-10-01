@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 const AddItemModal = (props) => {
-    const {userID} = useContext(InventoryContext);
+    const {currentUser} = useContext(InventoryContext);
     const [itemName, setItemName] = useState("");
     const [itemDescription, setItemDescription] = useState("");
     const [quantity, setQuantity] = useState(0);
@@ -16,7 +16,7 @@ const AddItemModal = (props) => {
         fetch(url, {
           method: "POST",
           body: JSON.stringify({
-            user_id: userID,
+            user_id: currentUser,
             item_name: itemName,
             item_description: itemDescription,
             quantity: quantity,
@@ -26,7 +26,6 @@ const AddItemModal = (props) => {
           },
         })
           .then(window.location.reload(false))
-          // .then(alert("Item added successfully"))
           .then((res) => res.json())
           .catch((err) => console.log(err));
         ;
