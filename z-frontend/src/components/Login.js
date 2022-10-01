@@ -14,7 +14,27 @@ const StyledDiv = styled.div`
   margin-right: 10%;
   border-radius: 10px;
   border: 1px solid black;
+  text-align: center;
 `;
+
+const StyledBody = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 1em;
+  margin: 1em;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin-right: 30%;
+  margin-left: 30%;
+`;
+
+const StyledFoot = styled.div`
+  margin-top: 5em;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+  
+`
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -74,7 +94,7 @@ export const Login = () => {
           {toggle === true ? (
             <>
               <h3>Login to Account</h3>
-              <>
+              <StyledBody>
                 <label htmlFor="loginusername">Username</label>
                 <input
                   type="text"
@@ -92,15 +112,15 @@ export const Login = () => {
                   placeholder="type in password..."
                   required
                 />
-                <Button type="submit" onClick={() => handleLoginUser()}>
-                  Submit
-                </Button>
-              </>
+              </StyledBody>
+              <Button type="submit" onClick={() => handleLoginUser()}>
+                Submit
+              </Button>
             </>
           ) : (
             <>
               <h3>Create Account</h3>
-              <>
+              <StyledBody>
                 <label htmlFor="firstname">First Name</label>
                 <input
                   type="text"
@@ -134,21 +154,34 @@ export const Login = () => {
                   placeholder="type in password..."
                   required
                 />
-                <Button type="submit" onClick={() => handleCreateUser()}>
-                  Submit
-                </Button>
-              </>
+              </StyledBody>
+              <Button type="submit" onClick={() => handleCreateUser()}>
+                Submit
+              </Button>
             </>
           )}
-
-          <label htmlFor="signin">Already a user?</label>
-          <Button variant="success" type="submit" name="signin" onClick={() => handleLogin()}>
-            Sign In
-          </Button>
-          <label htmlFor="visitor">Click if no account</label>
-          <Button type="submit" name="visitor" onClick={() => navigate("/items")}>
-            Visitor
-          </Button>
+          <StyledFoot>
+            <label htmlFor="signin">Already a user?</label>
+            &nbsp;&nbsp;&nbsp;
+            <Button
+              variant="success"
+              type="submit"
+              name="signin"
+              onClick={() => handleLogin()}
+            >
+              Sign In
+            </Button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label htmlFor="visitor">Click if no account</label>
+            &nbsp;&nbsp;&nbsp;
+            <Button
+              type="submit"
+              name="visitor"
+              onClick={() => navigate("/items")}
+            >
+              Visitor
+            </Button>
+          </StyledFoot>
         </form>
       </StyledDiv>
     );

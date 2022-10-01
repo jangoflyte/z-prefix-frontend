@@ -8,6 +8,7 @@ const StyledDiv = styled.div`
   border-radius: 3px;
   padding: 0.5em;
   margin: 1em;
+  margin-left: 10em;
   margin-right: 10em;
 `;
 

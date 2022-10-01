@@ -2,6 +2,14 @@ import React, {useContext, useState} from 'react';
 import { InventoryContext } from '../App';
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import styled from 'styled-components';
+
+const StyledBody = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+`
 
 const AddItemModal = (props) => {
     const {currentUser} = useContext(InventoryContext);
@@ -42,29 +50,33 @@ const AddItemModal = (props) => {
         <Modal.Title id="contained-modal-title-vcenter">Add Item</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <label htmlFor="name">Item Name</label>
-        <input
-          type="text"
-          name="name"
-          onChange={(e) => setItemName(e.target.value)}
-          autoFocus
-        ></input>
-        <label htmlFor="description">Item Description</label>
-        <textarea
-          type="text"
-          name="description"
-          onChange={(e) => setItemDescription(e.target.value)}
-        ></textarea>
-        <label htmlFor="quantity">Item Quantity</label>
-        <input
-          type="text"
-          name="quantity"
-          onChange={(e) => setQuantity(e.target.value)}
-        ></input>
+        <StyledBody>
+          <label htmlFor="name">Item Name</label>
+          <input
+            type="text"
+            name="name"
+            onChange={(e) => setItemName(e.target.value)}
+            autoFocus
+          ></input>
+          <label htmlFor="description">Item Description</label>
+          <textarea
+            type="text"
+            name="description"
+            onChange={(e) => setItemDescription(e.target.value)}
+          ></textarea>
+          <label htmlFor="quantity">Item Quantity</label>
+          <input
+            type="text"
+            name="quantity"
+            onChange={(e) => setQuantity(e.target.value)}
+          ></input>
+        </StyledBody>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
-        <Button variant="success" onClick={() => handleAddItem()}>Add</Button>
+        <Button variant="success" onClick={() => handleAddItem()}>
+          Add
+        </Button>
       </Modal.Footer>
     </Modal>
   );

@@ -11,6 +11,7 @@ const StyledDiv = styled.div`
   border-radius: 3px;
   padding: 0.5em;
   margin: 1em;
+  margin-left: 10em;
   margin-right: 10em;
 `;
 
@@ -118,7 +119,7 @@ export const AdminItems = () => {
       >
         All Items
       </Button>
-      <h4>Number of items: {adminItems.length}</h4>
+      <h4 style={{textAlign: "center"}}>Number of items: {adminItems.length}</h4>
       <>
         {adminItems.map((item) => (
           <StyledDiv>
