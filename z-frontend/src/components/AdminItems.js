@@ -63,7 +63,7 @@ export const AdminItems = () => {
   }
 
   const handleEditName = (id) => {
-    fetch(`${itemurl}/${id}`, {
+    fetch(`${itemheroku}/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
         item_name: itemName,
@@ -78,7 +78,7 @@ export const AdminItems = () => {
   };
 
   const handleEditDescription = (id) => {
-    fetch(`${itemurl}/${id}`, {
+    fetch(`${itemheroku}/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
         item_description: itemDescription,
@@ -93,7 +93,7 @@ export const AdminItems = () => {
   };
 
   const handleEditQuantity = (id) => {
-    fetch(`${itemurl}/${id}`, {
+    fetch(`${itemheroku}/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
         quantity: quantity,
